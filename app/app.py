@@ -279,7 +279,7 @@ def extractfields(path):
 
 global counter
 
-counter=0
+counter=-1
 
 images =list(glob2.iglob("static/img/*.jpg"))
 print (images)
@@ -349,7 +349,7 @@ def convertpdftoimage():
 @app.route('/extract',methods=['GET'])
 def extract():
 	images =list(glob2.iglob("static/img/*.*"))
-	print( images)
+	print(images)
 
 	
 
@@ -443,12 +443,12 @@ def parse():
 @app.route('/next',methods=['GET'])
 def next():
 	global counter
-	if counter>=len(images):
+	if counter>=len(images)-1:
 		counter=0
-	counter+=1
-
-	print (counter)
-	return render_template("index.html",image_path=images[counter])
+	else:
+		counter+=1
+	print (counter,"  ",images[counter])
+	return render_template("extract.html",image_path=images[counter])
 
 
 if __name__ == '__main__':

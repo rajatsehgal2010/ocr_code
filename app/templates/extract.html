@@ -122,6 +122,7 @@
     var id=['#Invoice_No','#Invoice_Date','#Supplier_Name','#Amount','#CGST','#SGST','#GST_No_TVS','#GST_No_SUPPLIER','#PAN_No_SUPPLIER','#PAN_NO_TVS','#PO_No','#PO_Date'];
     var key=['Invoice_No','Invoice_Date','Supplier_Name','Amount','CGST','SGST','GST_No_TVS','GST_No_SUPPLIER','PAN_No_SUPPLIER','PAN_NO_TVS','PO_No','PO_Date'];
     function recognises(str) {
+        console.log(str);
     	document.getElementById("scan").style.display='block';
         var data = {};
         data.path = str;
