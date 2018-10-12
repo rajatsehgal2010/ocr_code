@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Cognitive Receipt Recognistion Engine </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style type="text/css">
+    .input-group-addon.primary {
+        color: rgb(255, 255, 255);
+        background-color: rgb(50, 118, 177);
+        border-color: rgb(40, 94, 142);
+    }
+
+    .input-group-addon.success {
+        color: rgb(255, 255, 255);
+        background-color: rgb(92, 184, 92);
+        border-color: rgb(76, 174, 76);
+    }
+
+    .input-group-addon.info {
+        color: rgb(255, 255, 255);
+        background-color: rgb(57, 179, 215);
+        border-color: rgb(38, 154, 188);
+    }
+
+    .input-group-addon.warning {
+        color: rgb(255, 255, 255);
+        background-color: rgb(240, 173, 78);
+        border-color: rgb(238, 162, 54);
+    }
+
+    .input-group-addon.danger {
+        color: rgb(255, 255, 255);
+        background-color: rgb(217, 83, 79);
+        border-color: rgb(212, 63, 58);
+    }
+
+    .input-group {
+        margin-bottom: inherit;
+    }
+
+    #monitor {
+
+        margin: auto;
+        position: relative;
+        width: 461px;
+        height: 606px;
+        border: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    #monitor .screen {
+        margin: auto;
+        margin-top: 10px;
+        width: 458px;
+        height: 587px;
+        background-size: cover;
+        background: transparent url('{{image_path}}');
+        /*background-color: rgba(0, 0, 0, 1);*/
+    }
+
+    #monitor .scan {
+        width: 100%;
+        height: 20px;
+        background-color: rgba(255, 255, 255, 0.7);
+        position: absolute;
+        z-index: 9999;
+        -moz-animation: scan 5s infinite;
+        -webkit-animation: scan 5s infinite;
+        animation: scan 5s infinite;
+        -webkit-animation-direction: alternate-reverse;
+        box-shadow: 0px 0px 30px #FFA500;
+        display: none
+    }
+
+    @-webkit-keyframes scan {
+        0%,
+        100% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+        100% {
+            -webkit-transform: translateY(510px);
+            transform: translateY(587px);
+        }
+    }
+
+
+
+    hr {
+        height: 4px;
+      
+      
+    }
+
+    .hr-warning {
+        background-image: -webkit-linear-gradient(left, rgba(210, 105, 30, .8), rgba(210, 105, 30, .6), rgba(0, 0, 0, 0));
+    }
+
+    .hr-success {
+        background-image: -webkit-linear-gradient(left, rgba(15, 157, 88, .8), rgba(15, 157, 88, .6), rgba(0, 0, 0, 0));
+    }
+
+    .hr-primary {
+        background-image: -webkit-linear-gradient(left, rgba(0,0,0,.0001), rgba(66, 133, 244, .6), rgba(0, 0, 0, 0));
+    }
+
+    .hr-danger {
+        background-image: -webkit-linear-gradient(left, rgba(244, 67, 54, .8), rgba(244, 67, 54, .6), rgba(0, 0, 0, 0));
+    }
+
+    h2{
+    	color: #3276b1;
+    }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    var id=['#Invoice_No','#Invoice_Date','#Supplier_Name','#Amount','#CGST','#SGST','#GST_No_TVS','#GST_No_SUPPLIER','#PAN_No_SUPPLIER','#PAN_NO_TVS','#PO_No','#PO_Date'];
+    var key=['Invoice_No','Invoice_Date','Supplier_Name','Amount','CGST','SGST','GST_No_TVS','GST_No_SUPPLIER','PAN_No_SUPPLIER','PAN_NO_TVS','PO_No','PO_Date'];
+    function recognises(str) {
+    	document.getElementById("scan").style.display='block';
+        var data = {};
+        data.path = str;
+        console.log(JSON.stringify(data));
+        setTimeout(function(){ scan(data) }, 3000);
+    }
+
+    function doSetTimeout(i,data) {
+        console.log(data);
+        console.log(key[i]);
+        console.log(data[key[i]]);
+  setTimeout(function() {  $(id[i]).val(data[key[i]]); return true;}, i*200);
+}
+
+    function scan(data){
+    	$.ajax({
+            url: '/parse',
+            type: 'POST',
+            data: JSON.stringify(data),
+            processData: false, // tell jQuery not to process the data
+            contentType: "application/json",
+            success: function(data) {
+                console.log("success from ajax request .");
+                console.log(data);
+                
+                for(var i =0 ; i<id.length;i++){
+
+                	var flag = doSetTimeout(i,data);
+                }
+                
+                /* setTimeout(function(){ $('#Invoice_No').val(data.Invoice_No); }, 3000);
+                 setTimeout(function(){ $('#Invoice_Date').val(data.Invoice_Date); }, 3000);
+                 setTimeout(function(){ $('#Supplier_Name').val(data.Supplier_Name); }, 3000);
+                 setTimeout(function(){ $('#Amount').val(data.Amount); }, 3000);
+                 setTimeout(function(){ $('#CGST').val(data.CGST); }, 3000);
+                 setTimeout(function(){ $('#billno').val(data.billno); }, 3000);
+                 setTimeout(function(){ $('#total').val(data.total); }, 3000);
+                 setTimeout(function(){$('#email').val(data.email); }, 3000);
+                 setTimeout(function(){$('#fax').val(data.fax);}, 3000);
+                 setTimeout(function(){$('#phone').val(data.phone);}, 3000);*/
+                 setTimeout(function(){document.getElementById("scan").style.display='none';}, 3000);
+                   
+
+            },
+            error: function(data) {
+                console.log(data);
+                // $('#loader-wrapper').hide();
+            }
+        });
+    }
+
+
+    </script>
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <div class="container">
+        <div class="row">
+            <div class='col-md-offset-2 col-md-8 text-center'>
+                <h2>Cognitive Receipt Recognistion Engine</h2>
+                 <hr class="hr-primary" />
+            </div>
+           
+        </div>
+        <div class='row row-fluid'>
+            <div class=' col-md-3 pull-left'>
+
+             <button onclick="recognises('{{image_path}}')" type="button" class="btn  btn-primary btn-sm"> Recognise </button>
+             <a href="/next" class="btn" role="button"><i class="fa fa-angle-double-right fa-3x pull-right "></i></a>
+                <div id="monitor">
+                    <div class="scan" id='scan'></div>
+                    <!-- <div class="screen"></div> -->
+                    <img class="screen" src={{image_path}}>
+                </div>
+               
+            </div>
+
+            <form action="/custom" method="post" enctype="multipart/form-data">
+
+            <div class=' col-md-7 pull-right'>
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
+                        <input name='Invoice_No' id='Invoice_No' type="text" class="form-control" placeholder="Invoice_No">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span></span>
+                        <input name="Invoice_Date" type="text" id='Invoice_Date' class="form-control" placeholder="Invoice_Date">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span></span>
+                        <input name="Supplier_Name" type="text" id="Supplier_Name" class="form-control" placeholder="Supplier_Name">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size:38px;"></span></span>
+                        <input name="Amount" type="text" id='Amount' class="form-control" placeholder="Amount">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size:38px;"></span></span>
+                        <input name="CGST" type="text" id='CGST' class="form-control" placeholder="CGST">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size:38px;"></span></span>
+                        <input name="SGST" type="text" id='SGST' class="form-control" placeholder="SGST">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
+                        <input name="GST_No_TVS" type="text" id='GST_No_TVS' class="form-control" placeholder="GST_No_TVS">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span></span>
+                        <input name="GST_No_SUPPLIER" type="text" id='GST_No_SUPPLIER' class="form-control" placeholder="GST_No_SUPPLIER">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
+                        <input name="PAN_No_SUPPLIER" type="text" id='PAN_No_SUPPLIER' class="form-control" placeholder="PAN_No_SUPPLIER">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
+                        <input name="PAN_NO_TVS" type="text" id='PAN_NO_TVS' class="form-control" placeholder="PAN_NO_TVS">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
+                        <input name="PO_No" type="text" id='PO_No' class="form-control" placeholder="PO_No">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
+                        <input name="PO_Date" type="text" id='PO_Date' class="form-control" placeholder="PO_Date">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="custom">
+
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+    .nav {
+        position: fixed;
+        top: -21px;
+        left: 0;
+        right: 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        background-color: rgb(73, 139, 193);
+    color: rgba(255,255,255,0.9);
+        height: 40px;
+        text-align: center;
+        padding: 16px;
+    }
+    .chooseBtn{
+    	position: fixed;
+    	top: 525px;
+    left: 101px;
+        right: 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        background-color: rgb(73, 139, 193);
+    color: rgba(255,255,255,0.9);
+        height: 40px;
+        text-align: center;
+            padding: 16px;
+    padding-bottom: 0px;
+    padding-right: 50%;
+    }
+ .upload-btn-wrapper {
+  position: fixed;
+  overflow: hidden;
+  display: inline-block;
+      margin-left: 8%;
+    margin-top: -9%;
+    
+}
+
+.btn {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.uploadfile{
+	margin-left: 10%;
+	margin-top: -8%;
+}
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+
+}
+    .dropzone {
+    border: 3px dashed #0087F7;
+    margin: 15%;
+    min-height: 276px;
+}
+    </style>
+    <title >Flask App</title>
+    {{ dropzone.load() }}
+    {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
+</head>
+
+<body>
+    <h1 class="nav">Upload your Image</h1>
+    {{ dropzone.create(action_view='index') }}
+    <br/>
+  <div class="uploadfile">  
+<form method="post" enctype="multipart/form-data"  action="http://0.0.0.0:5051/">
+	
+  <input class="btn" type="file" name="files" accept="image/*">
+  <input class ="btn" type="submit">
+</form></div>
+  
+</body>
+
+</html>

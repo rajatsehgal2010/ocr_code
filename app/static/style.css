@@ -1,0 +1,46 @@
+#monitor{
+
+ margin:auto;
+ position:relative;
+ width:420px;
+ height:550px;
+ border:1px solid rgba(0,0,0,.1);  
+ 
+ 
+}
+#monitor .screen
+{
+ margin:auto;
+ margin-top:10px;
+ width:400px;
+ height:530px;
+ background-size:cover;
+ background-color: rgba(0,0,0,1);
+}
+
+#monitor .scan
+{
+ width:100%;
+ height:20px;
+ background-color:rgba(255,255,255,1);
+ position:absolute;
+ z-index:9999;
+  -moz-animation: scan 5s infinite;
+ -webkit-animation: scan 5s infinite;
+ animation: scan 5s infinite;
+  -webkit-animation-direction: alternate-reverse;
+ box-shadow:0px 0px 30px rgba(255,255,102,.5);
+ 
+ 
+}
+
+@-webkit-keyframes scan {
+ 0%, 100% {
+   -webkit-transform: translateY(0);
+   transform: translateY(0);
+ }
+ 100% {
+   -webkit-transform: translateY(510px);
+   transform: translateY(540px);
+ }
+}
