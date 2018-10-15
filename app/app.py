@@ -279,7 +279,7 @@ def extractfields(path):
 
 global counter
 
-counter=-1
+counter=0
 
 images =list(glob2.iglob("static/img/*.jpg"))
 print (images)
@@ -376,6 +376,11 @@ def directoryM(path,resp):
 	    book.save(file_name)
 	return "Done"
 
+@app.route('/uploaded_images',methods=['GET'])
+def showfiles():
+	images =list(glob2.iglob("static/img/*.*"))
+	print(images)
+	return render_template("uploaded_files.html",Image=images)
 
 @app.route('/custom',methods=['POST'])
 def directoryU():
@@ -426,11 +431,12 @@ def directoryU():
 
 @app.route('/parse',methods=['POST'])
 def parse():
-	# data=request.get_json()
+	global counter
+	data=request.get_json()
 	
-	# path=data['path']
+	path=data['path']
 	# result = extractfields(path)
-
+	print ("Path : ",path)
 	#return jsonify(result)
 	#return path
 	#field = int_ocr.integrate("/home/ansul/EAST/merge/out00.jpg")
@@ -443,10 +449,12 @@ def parse():
 @app.route('/next',methods=['GET'])
 def next():
 	global counter
+	images=list(glob2.iglob("static/img/*.*"))
 	if counter>=len(images)-1:
 		counter=0
 	else:
 		counter+=1
+	print (counter,len(images))
 	print (counter,"  ",images[counter])
 	return render_template("extract.html",image_path=images[counter])
 

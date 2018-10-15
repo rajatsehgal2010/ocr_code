@@ -77,6 +77,24 @@ cursor: pointer;
     min-height: 276px;
 }
     </style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+        function showUploadedFiles(){
+      $.ajax({
+            url: '/uploaded_images',
+            type: 'GET',
+            contentType: "application/json",
+            success: function() {
+                console.log("success from ajax request .");
+            },
+            error: function(data) {
+                console.log("Error in showing uploaded images");
+            }
+        });
+    }
+    </script>
     <title >Flask App</title>
     {{ dropzone.load() }}
     {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
@@ -92,7 +110,7 @@ cursor: pointer;
   <input class="btn" type="file" name="files" accept="image/*">
   <input class="btn2" type="submit">
 </form></div>
-  
+ <a href="/uploaded_images" class="btn" role="button">Uploaded files</a> 
 </body>
 
 </html>

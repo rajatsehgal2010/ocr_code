@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+<link rel="stylesheet" type="text/css" href="../static/style.css">
+<head>
+    <style type="text/css">
+    
+    .nav {
+        position: fixed;
+        top: -21px;
+        left: 0;
+        right: 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        background-color: rgb(73, 139, 193);
+    color: rgba(255,255,255,0.9);
+        height: 40px;
+        text-align: center;
+        padding: 16px;
+    }
+    .IMG{
+      position: relative;
+      margin: 9%;
+    width: 23%;
+}
+*{
+  box-sizing: initial;
+}
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+element.style {
+    width: 28%;
+}
+
+
+    </style>
+    <title >Uploaded Files</title>
+</head>
+
+<body>
+    <h1 class="nav">Uploaded Images</h1>
+    <br/>
+  <div class="row">
+  {% for file in Image %}
+  <div class="w3-card" class="column" style="width:50%">
+    <img  src={{file}} style="width:100%">
+    <div class="w3-container">
+      <h4><b>File name:</b></h4>
+      <p>{{file}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+  
+</body>
+
+</html>
