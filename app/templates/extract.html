@@ -47,16 +47,16 @@
 
         margin: auto;
         position: relative;
-        width: 461px;
-        height: 606px;
+        width: 735px;
+        height: 811px;
         border: 1px solid rgba(0, 0, 0, .1);
     }
 
     #monitor .screen {
         margin: auto;
         margin-top: 10px;
-        width: 458px;
-        height: 587px;
+        width: 725px;
+        height: 789px;
         background-size: cover;
         background: transparent url('{{image_path}}');
         /*background-color: rgba(0, 0, 0, 1);*/
@@ -77,11 +77,13 @@
     }
 
     @-webkit-keyframes scan {
+
         0%,
         100% {
             -webkit-transform: translateY(0);
             transform: translateY(0);
         }
+
         100% {
             -webkit-transform: translateY(510px);
             transform: translateY(587px);
@@ -92,8 +94,8 @@
 
     hr {
         height: 4px;
-      
-      
+
+
     }
 
     .hr-warning {
@@ -105,40 +107,102 @@
     }
 
     .hr-primary {
-        background-image: -webkit-linear-gradient(left, rgba(0,0,0,.0001), rgba(66, 133, 244, .6), rgba(0, 0, 0, 0));
+        background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001), rgba(66, 133, 244, .6), rgba(0, 0, 0, 0));
     }
 
     .hr-danger {
         background-image: -webkit-linear-gradient(left, rgba(244, 67, 54, .8), rgba(244, 67, 54, .6), rgba(0, 0, 0, 0));
     }
-
-    h2{
-    	color: #3276b1;
+    .btn-sm{
+        font-size: 16px;
+    }
+    label {
+    display: inline-block;
+    width: 128px;
+    text-align: left;
+    margin-bottom: 7px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    font-weight: 400;
+    margin-left: 2%;
+    }
+    .btn3{
+      position: absolute;
+   border: 2px solid #498bc1;
+    color: #498bc1;
+    background-color: #ffffff;
+    padding: 6px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 72%;
+    margin-top: -82px;
+cursor: pointer;
+}
+.btn4{
+    position: absolute;
+    border: 2px solid #498bc1;
+    color: #498bc1;
+    background-color: #ffffff;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 19px;
+    margin-left: 86%;
+    margin-top: -82px;
+}
+    #sbmt{
+            margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 82%;
+    font-size: 17px;
+    }
+    .fa fa-inr{
+        font-size: 29px;
+    }
+    .form-group {
+    margin-left: 24%;
+    margin-top: 8%;
+    margin-bottom: 24px;
+    padding-left: 9%;
+    }
+    .input-group-lg>.form-control, .input-group-lg>.input-group-addon, .input-group-lg>.input-group-btn>.btn {
+    height: 45px;
+    padding: 2px 12px;
+    font-size: 13px;
+    line-height: 1.33;
+    }
+    .col-md-7 {
+    width: 56.333333%;
+        margin-right: -3%;
+    }
+    h2 {
+        color: #3276b1;
     }
     </style>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-    var id=['#Invoice_No','#Invoice_Date','#Supplier_Name','#Amount','#CGST','#SGST','#GST_No_TVS','#GST_No_SUPPLIER','#PAN_No_SUPPLIER','#PAN_NO_TVS','#PO_No','#PO_Date'];
-    var key=['Invoice_No','Invoice_Date','Supplier_Name','Amount','CGST','SGST','GST_No_TVS','GST_No_SUPPLIER','PAN_No_SUPPLIER','PAN_NO_TVS','PO_No','PO_Date'];
+    var id = ['#Invoice_No', '#Invoice_Date', '#Supplier_Name', '#Amount', '#CGST', '#SGST', '#GST_No_TVS', '#GST_No_SUPPLIER', '#PAN_No_SUPPLIER', '#PAN_NO_TVS', '#PO_No', '#PO_Date'];
+    var key = ['Invoice_No', 'Invoice_Date', 'Supplier_Name', 'Amount', 'CGST', 'SGST', 'GST_No_TVS', 'GST_No_SUPPLIER', 'PAN_No_SUPPLIER', 'PAN_NO_TVS', 'PO_No', 'PO_Date'];
+
     function recognises(str) {
         console.log(str);
-    	document.getElementById("scan").style.display='block';
+        document.getElementById("scan").style.display = 'block';
         var data = {};
         data.path = str;
         console.log(JSON.stringify(data));
-        setTimeout(function(){ scan(data) }, 3000);
+        setTimeout(function() { scan(data) }, 3000);
     }
 
-    function doSetTimeout(i,data) {
+    function doSetTimeout(i, data) {
         console.log(data);
         console.log(key[i]);
         console.log(data[key[i]]);
-  setTimeout(function() {  $(id[i]).val(data[key[i]]); return true;}, i*200);
-}
+        setTimeout(function() { $(id[i]).val(data[key[i]]); return true; }, i * 200);
+    }
 
-    function scan(data){
-    	$.ajax({
+    function scan(data) {
+        $.ajax({
             url: '/parse',
             type: 'POST',
             data: JSON.stringify(data),
@@ -147,12 +211,12 @@
             success: function(data) {
                 console.log("success from ajax request .");
                 console.log(data);
-                
-                for(var i =0 ; i<id.length;i++){
 
-                	var flag = doSetTimeout(i,data);
+                for (var i = 0; i < id.length; i++) {
+
+                    var flag = doSetTimeout(i, data);
                 }
-                
+
                 /* setTimeout(function(){ $('#Invoice_No').val(data.Invoice_No); }, 3000);
                  setTimeout(function(){ $('#Invoice_Date').val(data.Invoice_Date); }, 3000);
                  setTimeout(function(){ $('#Supplier_Name').val(data.Supplier_Name); }, 3000);
@@ -163,8 +227,8 @@
                  setTimeout(function(){$('#email').val(data.email); }, 3000);
                  setTimeout(function(){$('#fax').val(data.fax);}, 3000);
                  setTimeout(function(){$('#phone').val(data.phone);}, 3000);*/
-                 setTimeout(function(){document.getElementById("scan").style.display='none';}, 3000);
-                   
+                setTimeout(function() { document.getElementById("scan").style.display = 'none'; }, 3000);
+
 
             },
             error: function(data) {
@@ -173,8 +237,6 @@
             }
         });
     }
-
-
     </script>
 </head>
 
@@ -184,82 +246,78 @@
         <div class="row">
             <div class='col-md-offset-2 col-md-8 text-center'>
                 <h2>Cognitive Receipt Recognistion Engine</h2>
-                 <hr class="hr-primary" />
+                <hr class="hr-primary" />
             </div>
-           
         </div>
+        <a href="/uploaded_images" class="btn3" role="button">Uploaded files</a> 
+     <a href="/" class="btn4" role="button">Home</a> 
         <div class='row row-fluid'>
             <div class=' col-md-3 pull-left'>
-
-             <button onclick="recognises('{{image_path}}')" type="button" class="btn  btn-primary btn-sm"> Recognise </button>
-             <a href="/next" class="btn" role="button"><i class="fa fa-angle-double-right fa-3x pull-right "></i></a>
+                <button onclick="recognises('{{image_path}}')" type="button" class="btn  btn-primary btn-sm"> Recognise </button>
+                <a href="/next" class="btn" role="button"><i class="fa fa-angle-double-right fa-3x pull-right "></i></a>
                 <div id="monitor">
                     <div class="scan" id='scan'></div>
                     <!-- <div class="screen"></div> -->
                     <img class="screen" src={{image_path}}>
                 </div>
-               
-            </div>
-
-            <form action="/custom" method="post" enctype="multipart/form-data">
-
-            <div class=' col-md-7 pull-right'>
-                <div class="form-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
-                        <input name='Invoice_No' id='Invoice_No' type="text" class="form-control" placeholder="Invoice_No">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span></span>
-                        <input name="Invoice_Date" type="text" id='Invoice_Date' class="form-control" placeholder="Invoice_Date">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span></span>
-                        <input name="Supplier_Name" type="text" id="Supplier_Name" class="form-control" placeholder="Supplier_Name">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size:38px;"></span></span>
-                        <input name="Amount" type="text" id='Amount' class="form-control" placeholder="Amount">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size:38px;"></span></span>
-                        <input name="CGST" type="text" id='CGST' class="form-control" placeholder="CGST">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size:38px;"></span></span>
-                        <input name="SGST" type="text" id='SGST' class="form-control" placeholder="SGST">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
-                        <input name="GST_No_TVS" type="text" id='GST_No_TVS' class="form-control" placeholder="GST_No_TVS">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span></span>
-                        <input name="GST_No_SUPPLIER" type="text" id='GST_No_SUPPLIER' class="form-control" placeholder="GST_No_SUPPLIER">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
-                        <input name="PAN_No_SUPPLIER" type="text" id='PAN_No_SUPPLIER' class="form-control" placeholder="PAN_No_SUPPLIER">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
-                        <input name="PAN_NO_TVS" type="text" id='PAN_NO_TVS' class="form-control" placeholder="PAN_NO_TVS">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
-                        <input name="PO_No" type="text" id='PO_No' class="form-control" placeholder="PO_No">
-                    </div>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon primary"><i class="material-icons">place</i></span>
-                        <input name="PO_Date" type="text" id='PO_Date' class="form-control" placeholder="PO_Date">
-                    </div>
                 </div>
+                <form action="/custom" method="post" enctype="multipart/form-data">
+                    <div class=' col-md-7 pull-right'>
+                        <div class="form-group">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="Invoice_No">Invoice Number</label></span>
+                                <input name='Invoice_No' id='Invoice_No' type="text" class="form-control" placeholder="Invoice_No">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="Invoice_Date">Invoice Date</label></span></span>
+                                <input name="Invoice_Date" type="text" id='Invoice_Date' class="form-control" placeholder="Invoice_Date">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="Supplier_Name">Supplier Name</label></span></span>
+                                <input name="Supplier_Name" type="text" id="Supplier_Name" class="form-control" placeholder="Supplier_Name">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size: 27px;padding-top: 0px;padding-right: 9px;"></span><label for="Amount">Amount</label></span>
+                                <input name="Amount" type="text" id='Amount' class="form-control" placeholder="Amount">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size: 27px;padding-top: 0px;padding-right: 9px;"></span><label for="CGST">CGST</label></span>
+                                <input name="CGST" type="text" id='CGST' class="form-control" placeholder="CGST">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><span class="fa fa-inr" style="font-size: 27px;padding-top: 0px;padding-right: 9px;"></span><label for="SGST">SGST</label></span>
+                                <input name="SGST" type="text" id='SGST' class="form-control" placeholder="SGST">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="GST_No_TVS">GST_No_TVS</label></span>
+                                <input name="GST_No_TVS" type="text" id='GST_No_TVS' class="form-control" placeholder="GST_No_TVS">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="GST_No_SUPPLIER">GST_No_SUPPLIER</label></span></span>
+                                <input name="GST_No_SUPPLIER" type="text" id='GST_No_SUPPLIER' class="form-control" placeholder="GST_No_SUPPLIER">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="PAN_No_SUPPLIER">PAN_No_SUPPLIER</label></span>
+                                <input name="PAN_No_SUPPLIER" type="text" id='PAN_No_SUPPLIER' class="form-control" placeholder="PAN_No_SUPPLIER">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="PAN_NO_TVS">PAN_NO_TVS</label></span>
+                                <input name="PAN_NO_TVS" type="text" id='PAN_NO_TVS' class="form-control" placeholder="PAN_NO_TVS">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="PO_No">PO_No</label></span>
+                                <input name="PO_No" type="text" id='PO_No' class="form-control" placeholder="PO_No">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon primary"><i class="material-icons">place</i><label for="PO_Date">PO_Date</label></span>
+                                <input name="PO_Date" type="text" id='PO_Date' class="form-control" placeholder="PO_Date">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit"  id="sbmt" class="btn  btn-primary btn-sm">Confirm</button>
+                </form>
             </div>
-            <input type="submit" value="custom">
-
-
         </div>
-    </div>
 </body>
 
 </html>

@@ -55,7 +55,18 @@
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
-   margin-left: 3%;
+   margin-left: 0%;
+cursor: pointer;
+}
+.btn3{
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+   margin-left: 7%;
 cursor: pointer;
 }
 .uploadfile{
@@ -101,7 +112,7 @@ cursor: pointer;
 </head>
 
 <body>
-    <h1 class="nav">Upload your Image</h1>
+    <h1 class="nav">Upload Image</h1>
     {{ dropzone.create(action_view='index') }}
     <br/>
   <div class="uploadfile">  
@@ -109,8 +120,10 @@ cursor: pointer;
 	
   <input class="btn" type="file" name="files" accept="image/*">
   <input class="btn2" type="submit">
+  <a href="/uploaded_images" class="btn3" role="button">Uploaded files</a>
+ <a href="/next" class="btn3" role="button">Recognize uploaded files</a> 
 </form></div>
- <a href="/uploaded_images" class="btn" role="button">Uploaded files</a> 
+ 
 </body>
 
 </html>

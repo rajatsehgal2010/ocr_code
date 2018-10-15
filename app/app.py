@@ -12,11 +12,12 @@ from matplotlib import pyplot as plt
 import pdf2image
 
 from werkzeug.utils import secure_filename
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class,DOCUMENTS,TEXT
 
 import os
+import shutil
 import xlwt
 import int_ocr
 app = Flask(__name__)
@@ -51,6 +52,7 @@ app.config['DROPZONE_REDIRECT_VIEW'] = 'extract'
 
 # Uploads settings
 app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/static/img/'
+app.config['FINAL_DEST_OF_PHOTOS'] = os.getcwd() + '/completed/'
 
 uploadSetFiles = UploadSet('photos', IMAGES+DOCUMENTS+TEXT)
 configure_uploads(app, uploadSetFiles)
@@ -320,8 +322,7 @@ def index():
             file_urls.append(uploadSetFiles.url(filename))
             
         session['file_urls'] = file_urls
-        return "uploading..."
-    convertpdftoimage()
+    # convertpdftoimage()
     # return dropzone template on GET request    
     return render_template('index.html')
 
@@ -349,10 +350,10 @@ def convertpdftoimage():
 @app.route('/extract',methods=['GET'])
 def extract():
 	images =list(glob2.iglob("static/img/*.*"))
+	if len(images)==0:
+		return render_template("index.html")
 	print(images)
-
-	
-
+    
 	return render_template("extract.html",image_path=images[counter])
 	#return "success"
 
@@ -382,8 +383,10 @@ def showfiles():
 	print(images)
 	return render_template("uploaded_files.html",Image=images)
 
-@app.route('/custom',methods=['POST'])
+@app.route('/custom',methods=['GET','POST'])
 def directoryU():
+	global counter
+	images = list(glob2.iglob("static/img/*.*"))
 	path = images[counter]
 	Invoice_No = request.form['Invoice_No']
 	Invoice_Date = request.form['Invoice_Date']
@@ -412,13 +415,20 @@ def directoryU():
 	sheet1 = book.add_sheet("sheet1")
 	colunm_count = 0
 	data = sample
+	source_photo = os.path.join(os.getcwd(), images[counter])
+	dest = app.config['FINAL_DEST_OF_PHOTOS']
+	shutil.move(source_photo, dest)
 	for title, value in data.items():
 	    sheet1.write(0, colunm_count, title)
 	    sheet1.write(1, colunm_count, value)
 	    colunm_count += 1
 	    file_name = path+".xls"%()
 	    book.save(file_name)
-	return "Done"
+	images = list(glob2.iglob("static/img/*.*"))
+	if len(images)==0:
+		return render_template("index.html")
+	counter=0
+	return render_template("extract.html",image_path=images[counter])
 
 
 
@@ -432,6 +442,7 @@ def directoryU():
 @app.route('/parse',methods=['POST'])
 def parse():
 	global counter
+	images=list(glob2.iglob("static/img/*.*"))
 	data=request.get_json()
 	
 	path=data['path']
@@ -450,6 +461,8 @@ def parse():
 def next():
 	global counter
 	images=list(glob2.iglob("static/img/*.*"))
+	if len(images)==0:
+		return render_template("index.html")
 	if counter>=len(images)-1:
 		counter=0
 	else:
