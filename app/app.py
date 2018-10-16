@@ -441,6 +441,19 @@ def directoryU():
 
 @app.route('/parse',methods=['POST'])
 def parse():
+	source_F1="/home/rajotron/300"
+	source_F2="/home/rajotron/300/crop"
+	source_F3="/home/rajotron/300/roi"
+	filelist=glob2.iglob(source_F1+"/*.jpg")
+	for f in filelist:
+		os.remove(f)
+	filelist2=glob2.iglob(source_F2+"/*.jpg")
+	for f in filelist2:
+		os.remove(f)
+	filelist3=glob2.iglob(source_F3+"/*.jpg")
+	for f in filelist3:
+		os.remove(f)
+
 	global counter
 	images=list(glob2.iglob("static/img/*.*"))
 	data=request.get_json()
