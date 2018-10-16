@@ -127,29 +127,24 @@
     margin-left: 2%;
     }
     .btn3{
-      position: absolute;
-   border: 2px solid #498bc1;
-    color: #498bc1;
-    background-color: #ffffff;
-    padding: 6px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    margin-left: 72%;
-    margin-top: -82px;
-cursor: pointer;
-}
-.btn4{
+  
     position: absolute;
     border: 2px solid #498bc1;
     color: #498bc1;
     background-color: #ffffff;
-    padding: 3px 10px;
-    border-radius: 8px;
-    font-size: 19px;
-    margin-left: 86%;
-    margin-top: -82px;
+    padding: 7px 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+        margin-left: 11%;
+    margin-top: 21px;
+cursor: pointer;
 }
+/*.btn4{
+  
+    font-size: 16px;
+    cursor: pointer;
+}*/
     #sbmt{
             margin-top: 1%;
     margin-bottom: 1%;
@@ -247,15 +242,21 @@ cursor: pointer;
             <div class='col-md-offset-2 col-md-8 text-center'>
                 <h2>Cognitive Receipt Recognistion Engine</h2>
                 <hr class="hr-primary" />
+
+
             </div>
-        </div>
-        <a href="/uploaded_images" class="btn3" role="button">Uploaded files</a> 
-     <a href="/" class="btn4" role="button">Home</a> 
+
+
         <div class='row row-fluid'>
+        </div>
+        
             <div class=' col-md-3 pull-left'>
+                <a href="/" class="btn  btn-primary btn-sm" role="button">Home</a>
                 <button onclick="recognises('{{image_path}}')" type="button" class="btn  btn-primary btn-sm"> Recognise </button>
                 <a href="/next" class="btn" role="button"><i class="fa fa-angle-double-right fa-3x pull-right "></i></a>
+
                 <div id="monitor">
+                    
                     <div class="scan" id='scan'></div>
                     <!-- <div class="screen"></div> -->
                     <img class="screen" src={{image_path}}>
