@@ -462,7 +462,7 @@ def next():
 	global counter
 	images=list(glob2.iglob("static/img/*.*"))
 	if len(images)==0:
-		return render_template("index.html")
+		return render_template("warning.html")
 	if counter>=len(images)-1:
 		counter=0
 	else:

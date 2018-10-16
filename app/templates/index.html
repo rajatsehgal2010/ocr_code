@@ -39,8 +39,8 @@
 }
 
 .btn {
-  border: 2px solid gray;
-  color: gray;
+  border: 2px solid #498bc1;
+  color: #498bc1;
   background-color: white;
   padding: 8px 20px;
   border-radius: 8px;
@@ -48,8 +48,8 @@
   font-weight: bold;
 }
 .btn2{
-	border: 2px solid gray;
-  color: gray;
+	border: 2px solid #498bc1;
+  color: #498bc1;
   background-color: white;
   padding: 11px 24px;
   border-radius: 8px;
@@ -59,16 +59,20 @@
 cursor: pointer;
 }
 .btn3{
-  border: 2px solid gray;
-  color: gray;
+  border: 2px solid #498bc1;
+  color: #498bc1;
   background-color: white;
   padding: 11px 24px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
    margin-left: 7%;
+   text-decoration:none;
 cursor: pointer;
 }
+.btn3:hover {
+  text-decoration: underline;
+  }
 .uploadfile{
 	margin-left: 10%;
 	margin-top: -8%;
@@ -112,7 +116,7 @@ cursor: pointer;
 </head>
 
 <body>
-    <h1 class="nav">Upload Image</h1>
+    <h1 class="nav">Upload  Image</h1>
     {{ dropzone.create(action_view='index') }}
     <br/>
   <div class="uploadfile">  
